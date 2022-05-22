@@ -7,7 +7,10 @@ public class Instantiator : MonoBehaviour
 {
     public GameObject myCube;
     public Text cantidadPrefabs;
+    public Text clonesLeft;
     int cantidadPrefabsReal;
+    int counter = 0;
+    int contador = 0;
 
     public void InstantiatorDeObjetos()
     {
@@ -16,9 +19,15 @@ public class Instantiator : MonoBehaviour
 
     public void OnceInstantiator()
     {
-        for (int i = 0; i < 1; i++)
+        if (counter < 1)
         {
             Instantiate(myCube);
+            counter++;
+        }
+
+        else
+        {
+            Debug.Log("Instancia ya creada");
         }
     }
 
@@ -26,14 +35,14 @@ public class Instantiator : MonoBehaviour
     {
         cantidadPrefabsReal = int.Parse(cantidadPrefabs.text);
 
-        int contador = 0;
-
-        for(int i = 0; i < cantidadPrefabsReal; i++)
+        if (cantidadPrefabs.text != "")
         {
             if (contador < cantidadPrefabsReal)
             {
-                contador++;
                 Instantiate(myCube);
+                contador++;
+                clonesLeft.text = (cantidadPrefabsReal - contador).ToString();
+
             }
 
             else
@@ -41,24 +50,13 @@ public class Instantiator : MonoBehaviour
                 Debug.LogError("Ya has alcanzado el limite de prefabs");
             }
         }
-        
-    }
-
-    void Update()
-    {
-        cantidadPrefabsReal = int.Parse(cantidadPrefabs.text);
-
-        int contador = 0;
-
-        if (contador < cantidadPrefabsReal)
-        {
-            contador++;
-            Instantiate(myCube);
-        }
 
         else
         {
-            Debug.LogError("Ya has alcanzado el limite de prefabs");
+            Debug.LogError("No se puede ingresar NADA");
         }
-    }
+
+            
+        }
+        
 }
